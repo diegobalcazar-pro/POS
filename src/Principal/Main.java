@@ -14,53 +14,115 @@ public class Main {
 		
 		
 		
-		String[] menu_cajero = { "Realizar Venta", "Ver Stock Tienda", "Ver Ventas HOY", "Cerrar Caja", "Cerrar Sesion" };
+		String[] menu_cajero = { "Realizar Venta", "Ver Caja", "Ver Stock Tienda", "Ver Ventas HOY", "Cerrar Caja", "Cerrar Sesion" };
 
-		JOptionPane.showMessageDialog(null, "Buen dia Cajero (dia/mes/año)");
+		//JOptionPane.showMessageDialog(null, "Buen dia Cajero (dia/mes/año)");
 		
-		double dineroencaja=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Dinero que hay en caja"));
+		//double dineroencaja=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Dinero que hay en caja"));
 		
-
-		int elegido = JOptionPane.showOptionDialog(null, "Seleccione una opcion", null, JOptionPane.DEFAULT_OPTION,JOptionPane.DEFAULT_OPTION, null, menu_cajero, menu_cajero[0]);
+		boolean flagmenuprincipal=true;
 		
-		switch (elegido) {
-        case 0:
-			//Realizar Venta
-        	System.out.println("Realizar Venta");
-        	String[] opciones = {"Opción 1", "Opción 2", "Opción 3"};
+		do {
+			
+			int elegido = JOptionPane.showOptionDialog(null, "Seleccione una opcion", null, JOptionPane.DEFAULT_OPTION,JOptionPane.DEFAULT_OPTION, null, menu_cajero, menu_cajero[0]);
+			
+			switch (elegido) {
+	        case 0:
+				//Realizar Venta
+	        	System.out.println("Realizar Venta");
+	        	
+	        	//Opciones de Venta
+	        	String[] menu_Venta = { "Cliente", "Escanear Producto", "Agregar Producto", "Borrar Producto", "Modificar Producto", "Procesar Cobro", "Volver" };    		
+	        	
+	        	boolean flagopcionventa=true;
+	        	
+	        	do {
+	        		
+	        		int elegido_venta = JOptionPane.showOptionDialog(null, "Seleccione una opcion", null, JOptionPane.DEFAULT_OPTION,JOptionPane.DEFAULT_OPTION, null, menu_Venta, menu_Venta[0]);
+	        		
+	            	
+	            	switch (elegido_venta) {
+	    			case 0:
+	    				//Cliente
+	    				String[] opciones = {"Cliente 1", "Cliente 2", "Cliente 3"};
 
-            String seleccion = (String) JOptionPane.showInputDialog(
-                    null,
-                    "Elegí una opción:",
-                    "Selector",
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    opciones,
-                    opciones[0]  // valor por defecto
-            );
-			break;
-        case 1:
-			//Ver Stock Tienda
-        	System.out.println("Ver Stock Tienda");
-        	
-			break;
-        case 2:
-			//Ver Ventas HOY
-        	System.out.println("Ver Ventas HOY");
-        	
-			break;
-        case 3:
-			//Cerrar Caja
-        	System.out.println("Cerrar Caja");
-			break;
-        case 4:
-			//Cerrar Sesion
-        	System.out.println("Cerrar Sesion");
-			break;
+	    	            String seleccion = (String) JOptionPane.showInputDialog(
+	    	                    null,
+	    	                    "Elegí una opción:",
+	    	                    "Selector",
+	    	                    JOptionPane.QUESTION_MESSAGE,
+	    	                    null,
+	    	                    opciones,
+	    	                    opciones[0]  // valor por defecto
+	    	            );
+	    				
+	    				break;
+	    			case 1:
+	    				//Escanear Producto
+	    				
+	    				break;
+	    			case 2:
+	    				//Agregar Producto
+	    				
+	    				break;
+	    			case 3:
+	    				//Borrar Producto
+	    				
+	    				break;
+	    			case 4:
+	    				//Modificar Producto
+	    				
+	    				break;
+	    			case 5:
+	    				//Procesar Cobro
+	    				
+	    				break;
+	    			case 6:
+	    				//Volver
+	    				System.out.println("Volver a menu");
+	    				flagopcionventa=false;
+	    				break;
 
-		default:
-			break;
-		}
+	    			default:
+	    				break;
+	    			}
+	        		
+					
+				} while (flagopcionventa=false);
+	        	
+	        	
+				break;
+	        case 1:
+				//Ver Caja
+	        	System.out.println("Ver Caja");
+	        	
+				break;
+	        case 2:
+				//Ver Stock Tienda
+	        	System.out.println("Ver Stock Tienda");
+	        	
+				break;
+	        case 3:
+				//Ver Ventas HOY
+	        	System.out.println("Ver Ventas HOY");
+	        	
+				break;
+	        case 4:
+				//Cerrar Caja
+	        	System.out.println("Cerrar Caja");
+				break;
+	        case 5:
+				//Cerrar Sesion
+	        	System.out.println("Cerrar Sesion");
+	        	flagmenuprincipal=false;
+				break;
+
+			default:
+				break;
+			}
+			
+		} while (flagmenuprincipal=false);
+		
 		
 		
 		
