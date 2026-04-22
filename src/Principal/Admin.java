@@ -1,5 +1,7 @@
 package Principal;
 
+import javax.swing.JOptionPane;
+
 public class Admin extends Cuenta{
 	protected String idAdmin;
 
@@ -27,11 +29,9 @@ public class Admin extends Cuenta{
 		return "Admin [idAdmin=" + idAdmin + "]";
 	}
 	
-	
-	public static Cuenta Login(String usuario, String pass) {
-
-
-	    return null;
+	public void menu() {
+		JOptionPane.showMessageDialog(null, "Buienvenido Administrador " + this.getNombre());
+		
 	}
 	
 	public void CrearUsuario() {

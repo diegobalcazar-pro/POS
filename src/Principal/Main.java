@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		
+		//Creacion de objetos
 		Admin Diego = new Admin("Diego", "Balcazar", "45454545", "1155442266", "Diego@balcazar.com","diegobalca", "Diego1234", "001", "Admin","1");
 		Admin Beison = new Admin("Beison", "Torres", "45111545", "1199442266", "beison@torres.com", "beisontorres","Beison1234", "002", "Admin","2");
 		
@@ -18,6 +18,11 @@ public class Main {
 		Proveedor Lara = new Proveedor("Lara", "Ferreri", "1122334455", "1511223344", "lara@ferreri.com", "Sarmiento 1221", "CABA", "Proveedor de Camisetas de Futbol");
 	
 		
+		//Usuarios agregados a la Lista de Cuentas para poder logearse.
+		Cuenta.listaCuentas.add(Diego);
+		Cuenta.listaCuentas.add(Beison);
+		Cuenta.listaCuentas.add(Gamaliel);
+		Cuenta.listaCuentas.add(Juan);
 		
 		
 		//Login 
@@ -32,35 +37,25 @@ public class Main {
 		    if (opcion == 0) {
 
 		        logueada = Cuenta.Login(
-		                JOptionPane.showInputDialog("Ingrese Cuenta"),
+		                JOptionPane.showInputDialog("Ingrese Usuario"),
 		                JOptionPane.showInputDialog("Ingrese contraseña")
 		        );
 
 		        if (logueada != null) {
 
-		            if (logueada instanceof Admin) {
-
-		                Admin admin = (Admin) logueada;
-		                JOptionPane.showMessageDialog(null, "Bienvenido Admin");
-
-
-		            } else if (logueada instanceof Empleado) {
-
-		                Empleado empleado = (Empleado) logueada;
-		                JOptionPane.showMessageDialog(null, "Bienvenido Empleado");
-
-		            }
-
-		        } else {
+		        	logueada.menu();
+		           
+		            } else {
+                       
 		            JOptionPane.showMessageDialog(null, "Usuario no encontrado");
-		        }
-		    }
-
+		          }
+		      }
+	      	            
 		} while (opcion != 1);
 		
 		
 		
-		
+		        
 		
 	}
 

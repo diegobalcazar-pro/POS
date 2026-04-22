@@ -1,5 +1,7 @@
 package Principal;
 
+import javax.swing.JOptionPane;
+
 public class Empleado extends Cuenta{
 	protected String idEmpleado;
 	protected String rolEmpleado;
@@ -36,15 +38,12 @@ public class Empleado extends Cuenta{
 	public String toString() {
 		return "Empleado [idEmpleado=" + idEmpleado + ", rolEmpleado=" + rolEmpleado + "]";
 	}
+	public void menu() {
+		JOptionPane.showMessageDialog(null, "Buienvenido Empleado " + this.getNombre());
+		
+	}
 	
 	//Metodos Rol Cajero
-	public static Cuenta Login(String usuario, String pass) {
-
-
-	    return null;
-	}
-
-
 	public void AbrirCaja() {		
 	}
 	
