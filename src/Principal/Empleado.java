@@ -38,6 +38,13 @@ public class Empleado extends Cuenta{
 	}
 	
 	//Metodos Rol Cajero
+	public static Cuenta Login(String usuario, String pass) {
+
+
+	    return null;
+	}
+
+
 	public void AbrirCaja() {		
 	}
 	

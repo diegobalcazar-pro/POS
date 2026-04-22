@@ -1,11 +1,66 @@
 package Principal;
 
+import javax.swing.JOptionPane;
+
 public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		
+		Admin Diego = new Admin("Diego", "Balcazar", "45454545", "1155442266", "Diego@balcazar.com","diegobalca", "Diego1234", "001", "Admin","1");
+		Admin Beison = new Admin("Beison", "Torres", "45111545", "1199442266", "beison@torres.com", "beisontorres","Beison1234", "002", "Admin","2");
+		
+		Empleado Gamaliel = new Empleado("Natael", "Quiroz", "45454000", "1166442266", "gama@natan.com", "gamanatael","Gama1234", "001", "Empleado", "1", "Empleado Caja");
+		Empleado Juan = new Empleado("Juan", "Carloni", "45454444", "1159992266", "juan@carloni.com", "juancarloni", "Juan1234", "002", "Empleado", "2", "Empleado Deposito");
+		
+		Cliente Ian = new Cliente("Ian", "Japan", "45454541", "1155442211", "Ian@japan.com", "Muy Lejos 123", "General Rodriguez", "Mayorista");
+		Proveedor Lara = new Proveedor("Lara", "Ferreri", "1122334455", "1511223344", "lara@ferreri.com", "Sarmiento 1221", "CABA", "Proveedor de Camisetas de Futbol");
+	
+		
+		
+		
+		//Login 
+		Cuenta logueada = null;
 
-		System.out.println("Hola Mundo!");
+		String[] opciones = { "Login", "Salir" };
+
+		int opcion;
+		do {
+		    opcion = JOptionPane.showOptionDialog(null, "Elija opción", null, 0, 0, null, opciones, opciones);
+
+		    if (opcion == 0) {
+
+		        logueada = Cuenta.Login(
+		                JOptionPane.showInputDialog("Ingrese Cuenta"),
+		                JOptionPane.showInputDialog("Ingrese contraseña")
+		        );
+
+		        if (logueada != null) {
+
+		            if (logueada instanceof Admin) {
+
+		                Admin admin = (Admin) logueada;
+		                JOptionPane.showMessageDialog(null, "Bienvenido Admin");
+
+
+		            } else if (logueada instanceof Empleado) {
+
+		                Empleado empleado = (Empleado) logueada;
+		                JOptionPane.showMessageDialog(null, "Bienvenido Empleado");
+
+		            }
+
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Usuario no encontrado");
+		        }
+		    }
+
+		} while (opcion != 1);
+		
+		
+		
+		
 		
 	}
 

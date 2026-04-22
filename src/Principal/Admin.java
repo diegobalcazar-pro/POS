@@ -27,6 +27,13 @@ public class Admin extends Cuenta{
 		return "Admin [idAdmin=" + idAdmin + "]";
 	}
 	
+	
+	public static Cuenta Login(String usuario, String pass) {
+
+
+	    return null;
+	}
+	
 	public void CrearUsuario() {
 		
     }

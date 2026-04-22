@@ -58,10 +58,13 @@ public class Cuenta extends Persona{
 				+ rolCuenta + "]";
 	}
 	
-	public void Login() {
+	public static Cuenta Login(String cuenta, String contrasena) {
+		return null;
+		
+		
 		
 	}
-	
+
 
 	
 
