@@ -5,35 +5,54 @@ import java.util.LinkedList;
 public class Envio {
 
 	//atributos
-	private String estadoDeEnvio;
-	private LinkedList pedidos;
-	private LinkedList Clientes;
-	//constructor
-	public Envio(String estadoDeEnvio, LinkedList pedidos, LinkedList clientes) {
+	protected String estadoDeEnvio;
+	protected LinkedList <Pedido> pedidos;
+	protected LinkedList <Cliente> clientes;
+	
+	
+	//Constructor
+	public Envio(String estadoDeEnvio, LinkedList<Pedido> pedidos, LinkedList<Cliente> clientes) {
 		super();
 		this.estadoDeEnvio = estadoDeEnvio;
 		this.pedidos = pedidos;
-		Clientes = clientes;
+		this.clientes = clientes;
 	}
-	//getters&setters
+
+
+	
+	//Getters y setters
 	public String getEstadoDeEnvio() {
 		return estadoDeEnvio;
 	}
 	public void setEstadoDeEnvio(String estadoDeEnvio) {
 		this.estadoDeEnvio = estadoDeEnvio;
 	}
-	public LinkedList getPedidos() {
+
+
+	public LinkedList<Pedido> getPedidos() {
 		return pedidos;
 	}
-	public void setPedidos(LinkedList pedidos) {
+	public void setPedidos(LinkedList<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
-	public LinkedList getClientes() {
-		return Clientes;
+
+
+	public LinkedList<Cliente> getClientes() {
+		return clientes;
 	}
-	public void setClientes(LinkedList clientes) {
-		Clientes = clientes;
+	public void setClientes(LinkedList<Cliente> clientes) {
+		this.clientes = clientes;
 	}
+
+
+
+	//Metodos
+	@Override
+	public String toString() {
+		return "Envio [estadoDeEnvio=" + estadoDeEnvio + ", pedidos=" + pedidos + ", clientes=" + clientes + "]";
+	}
+	
+	
 	
 	
 }
