@@ -4,18 +4,18 @@ import java.util.LinkedList;
 
 public class Caja {
 	protected String idCaja;
-	protected LinkedList <Empleado> Empleados;
+	protected LinkedList <Empleado> empleados;
 	
 	
 	//constructor
-	public Caja(String idCaja, LinkedList <Empleado> empleados) {
+	public Caja(String idCaja, LinkedList<Empleado> empleados) {
 		super();
 		this.idCaja = idCaja;
-		Empleados = empleados;
+		this.empleados = empleados;
 	}
 
 
-	//getters y setters
+	//Getters y Setters
 	public String getIdCaja() {
 		return idCaja;
 	}
@@ -24,20 +24,23 @@ public class Caja {
 	}
 
 
-	public LinkedList <Empleado> getEmpleado() {
-		return Empleados;
+	public LinkedList<Empleado> getEmpleados() {
+		return empleados;
 	}
-	public void setEmpleado(LinkedList <Empleado> empleados) {
-		Empleados = empleados;
+	public void setEmpleados(LinkedList<Empleado> empleados) {
+		this.empleados = empleados;
 	}
 
 
-	
 	//metodos
 	@Override
 	public String toString() {
-		return "Caja [idCaja=" + idCaja + ", Empleado=" + Empleados + "]";
+		return "Caja [idCaja=" + idCaja + ", empleados=" + empleados + "]";
 	}
+	
+	
+	
+	
 	
 	
 	
