@@ -2,16 +2,16 @@ package Principal;
 
 import java.util.LinkedList;
 
-public class Pedido {
+public class Venta {
 	protected String idPedido;
 	protected LinkedList <Producto> productos;
 	protected LinkedList <Caja> cajas;
-	protected LinkedList <Cliente> clientes;
+	protected Cliente clientes;
 	
 	
 	//Constructor
-	public Pedido(String idPedido, LinkedList<Producto> productos, LinkedList<Caja> cajas,
-			LinkedList<Cliente> clientes) {
+	public Venta(String idPedido, LinkedList<Producto> productos, LinkedList<Caja> cajas,
+			Cliente clientes) {
 		super();
 		this.idPedido = idPedido;
 		this.productos = productos;
@@ -45,10 +45,10 @@ public class Pedido {
 	}
 
 
-	public LinkedList<Cliente> getClientes() {
+	public Cliente getClientes() {
 		return clientes;
 	}
-	public void setClientes(LinkedList<Cliente> clientes) {
+	public void setClientes(Cliente clientes) {
 		this.clientes = clientes;
 	}
 
