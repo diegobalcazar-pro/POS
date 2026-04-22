@@ -20,7 +20,7 @@ public class Main {
 		
 		//double dineroencaja=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Dinero que hay en caja"));
 		
-		boolean flagmenuprincipal=true;
+		boolean flag_menu_principal=true;
 		
 		do {
 			
@@ -34,9 +34,9 @@ public class Main {
 	        	//Opciones de Venta
 	        	String[] menu_Venta = { "Cliente", "Escanear Producto", "Agregar Producto", "Borrar Producto", "Modificar Producto", "Procesar Cobro", "Volver" };    		
 	        	
-	        	boolean flagopcionventa=true;
+	        	boolean flag_opcion_venta=true;
 	        	
-	        	do {
+                do {
 	        		
 	        		int elegido_venta = JOptionPane.showOptionDialog(null, "Seleccione una opcion", null, JOptionPane.DEFAULT_OPTION,JOptionPane.DEFAULT_OPTION, null, menu_Venta, menu_Venta[0]);
 	        		
@@ -44,9 +44,9 @@ public class Main {
 	            	switch (elegido_venta) {
 	    			case 0:
 	    				//Cliente
-	    				String[] opciones = {"Cliente 1", "Cliente 2", "Cliente 3"};
+	    			/*	String[] opciones = {"Cliente 1", "Cliente 2", "Cliente 3"};
 
-	    	            String seleccion = (String) JOptionPane.showInputDialog(
+	    	          /*  String seleccion = (String) JOptionPane.showInputDialog(
 	    	                    null,
 	    	                    "Elegí una opción:",
 	    	                    "Selector",
@@ -55,7 +55,7 @@ public class Main {
 	    	                    opciones,
 	    	                    opciones[0]  // valor por defecto
 	    	            );
-	    				
+	    				*/
 	    				break;
 	    			case 1:
 	    				//Escanear Producto
@@ -80,15 +80,16 @@ public class Main {
 	    			case 6:
 	    				//Volver
 	    				System.out.println("Volver a menu");
-	    				flagopcionventa=false;
+	    				flag_opcion_venta=true;
 	    				break;
-
+	    				
 	    			default:
 	    				break;
 	    			}
+	            	
 	        		
 					
-				} while (flagopcionventa=false);
+				} while (flag_opcion_venta==false);
 	        	
 	        	
 				break;
@@ -114,14 +115,14 @@ public class Main {
 	        case 5:
 				//Cerrar Sesion
 	        	System.out.println("Cerrar Sesion");
-	        	flagmenuprincipal=false;
+	        	flag_menu_principal=true;
 				break;
-
-			default:
+				
+	        default:
 				break;
 			}
 			
-		} while (flagmenuprincipal=false);
+		} while (flag_menu_principal==false);
 		
 		
 		
