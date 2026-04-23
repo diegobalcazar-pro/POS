@@ -44,8 +44,7 @@ public class DetalleVenta {
 
 	@Override
 	public String toString() {
-		return "DetallePedido [producto=" + producto + ", cantidad=" + cantidad + ", preciounitario=" + preciounitario
-				+ "]";
+	    return producto.getNombreProducto() + " x" + cantidad;
 	}
 	
 	
