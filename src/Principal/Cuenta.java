@@ -1,10 +1,16 @@
 package Principal;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Cuenta extends Persona{
 	protected String usuario;
 	protected String contrasena;
 	protected String legajo;
 	protected String rolCuenta;
+	
+	//Array Lista de cuentas
+	static ArrayList<Cuenta> listaCuentas = new ArrayList<>();
 	
 	
 	//Constructor
@@ -58,10 +64,19 @@ public class Cuenta extends Persona{
 				+ rolCuenta + "]";
 	}
 	
-	public void Login() {
-		
+	public static Cuenta Login(String usuario, String contrasena) {
+		for (Cuenta logeada : listaCuentas) {
+			if (logeada.getUsuario().equals(usuario) && logeada.getContrasena().equals(contrasena) ) {
+				return logeada;
+			}
+		}
+		return null;
 	}
 	
+	public void menu() {
+		
+	}
+
 
 	
 

@@ -1,5 +1,7 @@
 package Principal;
 
+import javax.swing.JOptionPane;
+
 public class Empleado extends Cuenta{
 	protected String idEmpleado;
 	protected String rolEmpleado;
@@ -36,6 +38,8 @@ public class Empleado extends Cuenta{
 	public String toString() {
 		return "Empleado [idEmpleado=" + idEmpleado + ", rolEmpleado=" + rolEmpleado + "]";
 	}
+	
+	
 	
 	//Metodos Rol Cajero
 	public void AbrirCaja() {		
@@ -87,5 +91,27 @@ public class Empleado extends Cuenta{
     
     public void EnviarFaltantesDeProducto() {    	
     }
+
+
+	@Override
+	public void menu() {
+		// TODO Auto-generated method stub
+		
+		
+    if (this.rolEmpleado=="Caja") {
+			
+			System.out.println("Inicio de Sesion Caja");
+			JOptionPane.showMessageDialog(null, "Bienvenido Empleado " + this.getNombre());
+			
+			
+		} else if (this.rolEmpleado=="Deposito"){
+
+			System.out.println("Inicio de Sesion Deposito");
+			JOptionPane.showMessageDialog(null, "Bienvenido Empleado " + this.getNombre());
+			
+		}
+    super.menu();
+	}
+	
 
 }

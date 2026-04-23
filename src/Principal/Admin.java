@@ -1,5 +1,7 @@
 package Principal;
 
+import javax.swing.JOptionPane;
+
 public class Admin extends Cuenta{
 	protected String idAdmin;
 
@@ -26,6 +28,10 @@ public class Admin extends Cuenta{
 	public String toString() {
 		return "Admin [idAdmin=" + idAdmin + "]";
 	}
+	
+	
+	
+	
 	
 	public void CrearUsuario() {
 		
@@ -58,6 +64,16 @@ public class Admin extends Cuenta{
 	public void ModificarNombreDeEmpresa() {
 		
     }
+
+
+	@Override
+	public void menu() {
+		// TODO Auto-generated method stub
+		super.menu();
+		System.out.println("Inicio de Sesion Administrador");
+		JOptionPane.showMessageDialog(null, "Bienvenido Administrador " + this.getNombre());
+	}
+	
 	
 	
 }
