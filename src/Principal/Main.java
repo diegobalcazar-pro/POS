@@ -1,3 +1,4 @@
+
 package Principal;
 
 import javax.swing.JOptionPane;
@@ -11,17 +12,18 @@ public class Main {
 		Producto p2 = new Producto("Pantalon", "Pantalon Jeans", 2000, null);
 		Producto p3 = new Producto("Camisa", "Camisa azul", 3000, null);
 		Producto[] misProductos = { p1, p2, p3 };
-		
+
 		boolean programaCorriendo = true;
 		while (programaCorriendo) {
 
 			int elegido = JOptionPane.showOptionDialog(null, "Elija una opcion", "Depósito", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.DEFAULT_OPTION, null, opcionesDeposito, opcionesDeposito[0]);
 
-			if (elegido == JOptionPane.CLOSED_OPTION) break;
+			if (elegido == JOptionPane.CLOSED_OPTION)
+				break;
 
 			switch (elegido) {
-			case 0: 
+			case 0:
 				boolean continuarProd = true;
 				while (continuarProd) {
 					String[] opcionesGestionProductos = { "Cargar producto", "Eliminar producto", "Modificar producto",
@@ -56,7 +58,8 @@ public class Main {
 							if (misProductos[indice] != null) {
 								String nombreBorrado = misProductos[indice].nombreProducto;
 								misProductos[indice] = null;
-								JOptionPane.showMessageDialog(null, "Objeto '" + nombreBorrado + "' borrado con éxito.");
+								JOptionPane.showMessageDialog(null,
+										"Objeto '" + nombreBorrado + "' borrado con éxito.");
 							} else {
 								JOptionPane.showMessageDialog(null, "El producto ya estaba vacío.");
 							}
@@ -124,13 +127,13 @@ public class Main {
 						break;
 
 					case 4:
-						continuarProd = false;       
+						continuarProd = false;
 						break;
 					}
 				}
 				break;
 
-			case 1: 
+			case 1:
 				boolean continuarPed = true;
 				while (continuarPed) {
 					String[] opcionesGestionPedidos = { "Ver pedidos", "Cupo diario", "Enviar pedido", "Volver" };
@@ -149,25 +152,21 @@ public class Main {
 					case 1:
 						JOptionPane.showMessageDialog(null, "Cupo: 3 / 10 pedidos. [███-------] 30%");
 						break;
-					case 2: // Enviar pedido (Modificado para mostrar datos)
-					    String menuEnvio = "Seleccione el pedido a ENVIAR:\n" +
-					                       "1. " + pedido1 + "\n" +
-					                       "2. " + pedido2 + "\n" +
-					                       "3. " + pedido3;
-					    
-					    String selEnvio = JOptionPane.showInputDialog(null, menuEnvio, "Enviar Pedido", JOptionPane.QUESTION_MESSAGE);
+					case 2: 
+						String menuEnvio = "Seleccione el pedido a ENVIAR:\n" + "1. " + pedido1 + "\n" + "2. " + pedido2
+								+ "\n" + "3. " + pedido3;
 
-					    if (selEnvio != null && selEnvio.matches("[1-3]")) {
-					        String datosPedido = (selEnvio.equals("1")) ? pedido1 : 
-					                             (selEnvio.equals("2")) ? pedido2 : pedido3;
-					        
-					        // Mostramos el mensaje de éxito con los datos completos
-					        JOptionPane.showMessageDialog(null, 
-					            "¡ENVÍO EXITOSO!\n\n" +
-					            "Detalles del envío:\n" + datosPedido + "\n\n" +
-					            "El pedido ha sido despachado al transporte.");
-					    }
-					    break;
+						String selEnvio = JOptionPane.showInputDialog(null, menuEnvio, "Enviar Pedido",
+								JOptionPane.QUESTION_MESSAGE);
+
+						if (selEnvio != null && selEnvio.matches("[1-3]")) {
+							String datosPedido = (selEnvio.equals("1")) ? pedido1
+									: (selEnvio.equals("2")) ? pedido2 : pedido3;
+
+							JOptionPane.showMessageDialog(null, "¡ENVÍO EXITOSO!\n\n" + "Detalles del envío:\n"
+									+ datosPedido + "\n\n" + "El pedido ha sido despachado al transporte.");
+						}
+						break;
 					case 3:
 						continuarPed = false;
 						break;
@@ -184,7 +183,8 @@ public class Main {
 							opcionesGestionProveedores[0]);
 
 					if (elegido2 == 0) {
-						String menuFaltantes = "Producto a solicitar:\n1. " + p1.nombreProducto + "\n2. " + p2.nombreProducto;
+						String menuFaltantes = "Producto a solicitar:\n1. " + p1.nombreProducto + "\n2. "
+								+ p2.nombreProducto;
 						String selProv = JOptionPane.showInputDialog(null, menuFaltantes);
 						if (selProv != null && selProv.matches("[1-2]"))
 							JOptionPane.showMessageDialog(null, "Solicitud enviada.");
@@ -195,13 +195,12 @@ public class Main {
 				break;
 
 			case 3:
-				int confirmar = JOptionPane.showConfirmDialog(null, "¿Cerrar sesión?", "Salir", JOptionPane.YES_NO_OPTION);
-				if (confirmar == JOptionPane.YES_OPTION) {
-					programaCorriendo = false;
-				}
+
+				programaCorriendo = false;
+
 				break;
 			}
 		}
-		JOptionPane.showMessageDialog(null, "Sesión finalizada. ¡Adiós!");
+
 	}
 }
