@@ -11,8 +11,8 @@ public class Main {
 		Admin Diego = new Admin("Diego", "Balcazar", "45454545", "1155442266", "Diego@balcazar.com","diegobalca", "Diego1234", "001", "Admin","1");
 		Admin Beison = new Admin("Beison", "Torres", "45111545", "1199442266", "beison@torres.com", "beisontorres","Beison1234", "002", "Admin","2");
 		
-		Empleado Gamaliel = new Empleado("Natael", "Quiroz", "45454000", "1166442266", "gama@natan.com", "gamanatael","Gama1234", "001", "Empleado", "1", "Empleado Caja");
-		Empleado Juan = new Empleado("Juan", "Carloni", "45454444", "1159992266", "juan@carloni.com", "juancarloni", "Juan1234", "002", "Empleado", "2", "Empleado Deposito");
+		Empleado Gamaliel = new Empleado("Natanel", "Quiroz", "45454000", "1166442266", "gama@natan.com", "gamanatanael","Gama1234", "001", "Caja", "1", "Caja");
+		Empleado Juan = new Empleado("Juan", "Carloni", "45454444", "1159992266", "juan@carloni.com", "juan", "1234", "002", "Deposito", "2", "Deposito");
 		
 		Cliente Ian = new Cliente("Ian", "Japan", "45454541", "1155442211", "Ian@japan.com", "Muy Lejos 123", "General Rodriguez", "Mayorista");
 		Proveedor Lara = new Proveedor("Lara", "Ferreri", "1122334455", "1511223344", "lara@ferreri.com", "Sarmiento 1221", "CABA", "Proveedor de Camisetas de Futbol");
