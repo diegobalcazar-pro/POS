@@ -693,7 +693,7 @@ public class Main {
 	            opcionesProveedor,
 	            opcionesProveedor[0]
 	    );
-
+ 
 	    Proveedor proveedorSeleccionado = null;
 
 	    for (Proveedor p : listaProveedor) {
