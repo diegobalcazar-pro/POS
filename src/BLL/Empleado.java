@@ -15,7 +15,12 @@ public class Empleado extends Cuenta{
 		this.rolEmpleado = rolEmpleado;
 	}
 
-
+	public Empleado(String nombre, String apellido, String mail, 
+			String contrasena, String rolCuenta, int idEmpleado) {
+		super(nombre, apellido, "", "", mail, "", contrasena, "", rolCuenta);
+		this.idEmpleado = Integer.toString(idEmpleado);
+		this.rolEmpleado = rolEmpleado;
+	}
 	//Getters y setters
 	public String getIdEmpleado() {
 		return idEmpleado;

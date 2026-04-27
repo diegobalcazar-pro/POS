@@ -9,12 +9,10 @@ import javax.swing.JOptionPane;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
-import BLL.Usuario;
-import BLL.Alumno;
 import BLL.Cuenta;
-import BLL.Profesor;
+import BLL.Empleado;
+import BLL.Admin;
 import repository.CuentaRepository;
-import repository.UsuarioRepository;
 
 public class ControllerCuenta<T extends Cuenta> implements CuentaRepository {
 
@@ -34,16 +32,25 @@ public class ControllerCuenta<T extends Cuenta> implements CuentaRepository {
 
             //if porque un resultado
             if (rs.next()) {
-                int id = rs.getInt("id");
+                int id = rs.getInt("id_Usuario");
                 String email = rs.getString("email");
-                String rolCuenta = rs.getString("rolCuenta");
+                String rolCuenta = rs.getString("rol");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
 
                 switch (rolCuenta.toLowerCase()) {
                     case "empleado":
-                        cuenta = (T) new Empleado(id, usuario, email, rolCuenta, contrasena);
+                    	//CLASE
+                    	//String nombre, String apellido, String mail, 
+            			//String contrasena, String rolCuenta, String idEmpleado
+                       
+                    	//ENTIDAD BDD 
+                    	//id_Usuario	nombre	apellido	email	password	rol	
+                    	
+                    	cuenta = (T) new Empleado(nombre,apellido,email, contrasena,rolCuenta,id);
                         break;
                     case "admin":
-                    	cuenta = (T) new Admin(id, usuario, email, rolCuenta, contrasena);
+                    	cuenta = null;
                         break;
                     default:
                         System.out.println("Tipo de usuario desconocido: " + rolCuenta);
@@ -94,17 +101,17 @@ public class ControllerCuenta<T extends Cuenta> implements CuentaRepository {
                 String tipo = rs.getString("tipo");
                 String password = rs.getString("password");
 
-                switch (tipo.toLowerCase()) {
-                    case "empleado":
-                        cuentas.add((T) new Empleado(id, nombre, email, tipo, password));
-                        break;
-                    case "admin":
-                    	cuentas.add((T) new Admin(id, nombre, email, tipo, password));
-                        break;
-                    default:
-                        System.out.println("Tipo desconocido: " + tipo);
-                        break;
-                }
+//                switch (tipo.toLowerCase()) {
+//                    case "empleado":
+//                        cuentas.add((T) new Empleado(id, nombre, email, tipo, password));
+//                        break;
+//                    case "admin":
+//                    	cuentas.add((T) new Admin(id, nombre, email, tipo, password));
+//                        break;
+//                    default:
+//                        System.out.println("Tipo desconocido: " + tipo);
+//                        break;
+//                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -121,9 +128,16 @@ public class ControllerCuenta<T extends Cuenta> implements CuentaRepository {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
-                String email = rs.getString("email");
-                String tipo = rs.getString("tipo");
+                String apellido = rs.getString("apellido");
+                String dni = rs.getString("dni");
+                String telefono = rs.getString("telefono");
+                String mail = rs.getString("mail");
+                String usuario = rs.getString("usuario");
+                String legajo = rs.getString("legajo");
+                String rolCuenta = rs.getString("rolCuenta");
+                String idEmpleado = rs.getString("idEmpleado");
                 String contrasena = rs.getString("contrasena");
+                String rolEmpleado = rs.getString("rolEmpleado");
 
               
                         cuentas.add((T) new Empleado(nombre, apellido, dni, telefono, mail, usuario, contrasena, legajo, rolCuenta, idEmpleado, rolEmpleado));

@@ -3,15 +3,15 @@ package GUI;
 import javax.swing.JOptionPane;
 
 import DLL.Conexion;
-import DLL.ControllerUsuario;
-import BLL.Usuario;
-import BLL.Alumno;
-import BLL.Profesor;
+import DLL.ControllerCuenta;
+import BLL.Cuenta;
+import BLL.Empleado;
+import BLL.Admin;
 
 public class Main {
     public static void main(String[] args) {
         
-    	// Conexion.getInstance();
+    	Conexion.getInstance();
     	
 
         String[] acciones = { "Login", "Registrar", "Salir" };
@@ -23,14 +23,14 @@ public class Main {
             switch (menu) {
                 case 0:
                   
-                    Usuario usuario = Usuario.Login();
-                    if (usuario != null) {
-                        if (usuario instanceof Profesor) {
-                            JOptionPane.showMessageDialog(null, "Sofía Lopez Profesor " + usuario.getNombre());
+                    Cuenta cuenta = Cuenta.Login(usuario, contrasena);
+                    if (cuenta != null) {
+                        if (cuenta instanceof Admin) {
+                            JOptionPane.showMessageDialog(null, "Sofía Lopez Admin " + cuenta.getNombre());
                             // Ir a menu de profesor
-                            usuario.Menu();
-                        } else if (usuario instanceof Alumno) {
-                            JOptionPane.showMessageDialog(null, "Bienvenido Alumno " + usuario.getNombre());
+                            cuenta.Menu();
+                        } else if (cuenta instanceof Empleado) {
+                            JOptionPane.showMessageDialog(null, "Bienvenido Empleado " + cuenta.getNombre());
                             // Ir a menu de alumno
                         }
                     } else {
