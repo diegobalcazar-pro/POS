@@ -30,6 +30,7 @@ public class ControllerUsuario<T extends Usuario> implements UsuarioRepository {
 
             ResultSet rs = stmt.executeQuery();
 
+            //if porque un resultado
             if (rs.next()) {
                 int id = rs.getInt("id");
                 String email = rs.getString("email");
@@ -82,6 +83,7 @@ public class ControllerUsuario<T extends Usuario> implements UsuarioRepository {
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario");
             ResultSet rs = stmt.executeQuery();
 
+            //while porque trae varios resultados
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
