@@ -11,10 +11,9 @@ import BLL.Profesor;
 public class Main {
     public static void main(String[] args) {
         
+    	// Conexion.getInstance();
     	
-    	Conexion.getInstance();
-    	
-        /*
+
         String[] acciones = { "Login", "Registrar", "Salir" };
         int menu = 0;
         
@@ -45,6 +44,6 @@ public class Main {
                     
                     break;
             }
-        } while (menu != 2);*/
+        } while (menu != 2);
     }
 }

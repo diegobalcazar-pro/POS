@@ -11,22 +11,24 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 
 import BLL.Usuario;
 import BLL.Alumno;
+import BLL.Cuenta;
 import BLL.Profesor;
+import repository.CuentaRepository;
 import repository.UsuarioRepository;
 
-public class ControllerUsuario<T extends Usuario> implements UsuarioRepository {
+public class ControllerCuenta<T extends Cuenta> implements CuentaRepository {
 
     private static Connection con = Conexion.getInstance().getConnection();
 
     @Override
-    public T login(String nombre, String password) {
-        T usuario = null;
+    public T login(String usuario, String contrasena) {
+        T cuenta = null;
         try {
             PreparedStatement stmt = con.prepareStatement(
                 "SELECT * FROM usuario WHERE nombre = ? AND password = ?"
             );
-            stmt.setString(1, nombre);
-            stmt.setString(2, password);
+            stmt.setString(1, usuario);
+            stmt.setString(2, contrasena);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -34,36 +36,36 @@ public class ControllerUsuario<T extends Usuario> implements UsuarioRepository {
             if (rs.next()) {
                 int id = rs.getInt("id");
                 String email = rs.getString("email");
-                String tipo = rs.getString("tipo");
+                String rolCuenta = rs.getString("rolCuenta");
 
-                switch (tipo.toLowerCase()) {
-                    case "alumno":
-                        usuario = (T) new Alumno(id, nombre, email, tipo, password);
+                switch (rolCuenta.toLowerCase()) {
+                    case "empleado":
+                        cuenta = (T) new Empleado(id, usuario, email, rolCuenta, contrasena);
                         break;
-                    case "profesor":
-                        usuario = (T) new Profesor(id, nombre, email, tipo, password);
+                    case "admin":
+                    	cuenta = (T) new Admin(id, usuario, email, rolCuenta, contrasena);
                         break;
                     default:
-                        System.out.println("Tipo de usuario desconocido: " + tipo);
+                        System.out.println("Tipo de usuario desconocido: " + rolCuenta);
                         break;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return usuario;
+        return cuenta;
     }
 
     @Override
-    public void agregarUsuario(Usuario usuario) {
+    public void agregarCuenta(Cuenta cuenta) {
         try {
             PreparedStatement statement = con.prepareStatement(
                 "INSERT INTO usuario (nombre, email, tipo, password) VALUES (?,?, ?, ?)"
             );
-            statement.setString(1, usuario.getNombre());
-            statement.setString(2, usuario.getEmail());
-            statement.setString(3, usuario.getTipo());
-            statement.setString(4, usuario.getPassword());
+            statement.setString(1, cuenta.getNombre());
+            statement.setString(2, cuenta.getMail());
+            statement.setString(3, cuenta.getRolCuenta());
+            statement.setString(4, cuenta.getContrasena());
 
             int filas = statement.executeUpdate();
             if (filas > 0) {
@@ -77,10 +79,11 @@ public class ControllerUsuario<T extends Usuario> implements UsuarioRepository {
     }
 
     @Override
-    public LinkedList<Usuario> mostrarUsuarios() {
-        LinkedList<Usuario> usuarios = new LinkedList<>();
+    public LinkedList<Cuenta> mostrarCuentas() {
+        LinkedList<Cuenta> cuentas = new LinkedList<>();
         try {
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM cuenta");
+            //se ejecuta la query
             ResultSet rs = stmt.executeQuery();
 
             //while porque trae varios resultados
@@ -92,11 +95,11 @@ public class ControllerUsuario<T extends Usuario> implements UsuarioRepository {
                 String password = rs.getString("password");
 
                 switch (tipo.toLowerCase()) {
-                    case "alumno":
-                        usuarios.add((T) new Alumno(id, nombre, email, tipo, password));
+                    case "empleado":
+                        cuentas.add((T) new Empleado(id, nombre, email, tipo, password));
                         break;
-                    case "profesor":
-                        usuarios.add((T) new Profesor(id, nombre, email, tipo, password));
+                    case "admin":
+                    	cuentas.add((T) new Admin(id, nombre, email, tipo, password));
                         break;
                     default:
                         System.out.println("Tipo desconocido: " + tipo);
@@ -106,13 +109,13 @@ public class ControllerUsuario<T extends Usuario> implements UsuarioRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return usuarios;
+        return cuentas;
     }
     @Override
-    public LinkedList<Usuario> mostrarAlumnos() {
-        LinkedList<Usuario> usuarios = new LinkedList<>();
+    public LinkedList<Cuenta> mostrarEmpleados() {
+        LinkedList<Cuenta> cuentas = new LinkedList<>();
         try {
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario WHERE tipo ='Alumno'");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario WHERE tipo ='Empleado'");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -120,16 +123,16 @@ public class ControllerUsuario<T extends Usuario> implements UsuarioRepository {
                 String nombre = rs.getString("nombre");
                 String email = rs.getString("email");
                 String tipo = rs.getString("tipo");
-                String password = rs.getString("password");
+                String contrasena = rs.getString("contrasena");
 
               
-                        usuarios.add((T) new Alumno(id, nombre, email, tipo, password));
-                 
+                        cuentas.add((T) new Empleado(nombre, apellido, dni, telefono, mail, usuario, contrasena, legajo, rolCuenta, idEmpleado, rolEmpleado));
+
           
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return usuarios;
+        return cuentas;
     }
 }
