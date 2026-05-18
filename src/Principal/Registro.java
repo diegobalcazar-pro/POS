@@ -1,24 +1,26 @@
 package Principal;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 public class Registro {
 
 	//atributos
 	protected String idRegistro;
-	protected LinkedList <Pedido> pedidos;
+	protected LinkedList <Venta> ventas;
 	protected LinkedList <Producto> productos;
 	protected LinkedList <MedioDePago> medioDePagos;
 	protected LinkedList <Cliente> clientes;
 	protected LinkedList <Cuenta> cuentas;
+	protected LocalDate fecha;
 	
 	
 	//Constructor
-	public Registro(String idRegistro, LinkedList<Pedido> pedidos, LinkedList<Producto> productos,
+	public Registro(String idRegistro, LinkedList<Venta> ventas, LinkedList<Producto> productos,
 			LinkedList<MedioDePago> medioDePagos, LinkedList<Cliente> clientes, LinkedList<Cuenta> cuentas) {
 		super();
 		this.idRegistro = idRegistro;
-		this.pedidos = pedidos;
+		this.ventas = ventas;
 		this.productos = productos;
 		this.medioDePagos = medioDePagos;
 		this.clientes = clientes;
@@ -36,11 +38,11 @@ public class Registro {
 	}
 
 
-	public LinkedList<Pedido> getPedidos() {
-		return pedidos;
+	public LinkedList<Venta> getPedidos() {
+		return ventas;
 	}
-	public void setPedidos(LinkedList<Pedido> pedidos) {
-		this.pedidos = pedidos;
+	public void setPedidos(LinkedList<Venta> pedidos) {
+		this.ventas = pedidos;
 	}
 
 
@@ -80,7 +82,7 @@ public class Registro {
 	//Metodos
 	@Override
 	public String toString() {
-		return "Registro [idRegistro=" + idRegistro + ", pedidos=" + pedidos + ", productos=" + productos
+		return "Registro [idRegistro=" + idRegistro + ", ventas=" + ventas + ", productos=" + productos
 				+ ", medioDePagos=" + medioDePagos + ", clientes=" + clientes + ", cuentas=" + cuentas + "]";
 	}
 	

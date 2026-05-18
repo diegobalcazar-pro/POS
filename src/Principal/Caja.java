@@ -37,13 +37,5 @@ public class Caja {
 	public String toString() {
 		return "Caja [idCaja=" + idCaja + ", empleados=" + empleados + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

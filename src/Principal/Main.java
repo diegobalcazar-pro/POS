@@ -1,5 +1,9 @@
 package Principal;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 import javax.swing.JOptionPane;
 
 public class Main {
@@ -7,56 +11,714 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		//Creacion de objetos
+		
+		ArrayList<Cuenta> listaCuentas = new ArrayList<>();
+		ArrayList<Cliente> listaClientes = new ArrayList<>();
+		ArrayList<Producto> listaProductos = new ArrayList<>();
+		ArrayList<Proveedor> listaProveedor = new ArrayList<>();
+		ArrayList<String> ventasHoy = new ArrayList<>();
+		
+		
+		Cliente C1 = new Cliente("Beison", "Tiznado", "12345678", "11 2345 6876", "beison@gmail.com", "Av Corrientes 2313", "Balvanera, Buenos Aires", "Mayorista");
+		listaClientes.add(C1);
+		Cliente C2 = new Cliente("Ian", "Japan", "65373456", "11 3241 7424", "ian@gmail.com", "Av Corrientes 2313", "Balvanera, Buenos Aires", "Mayorista");
+		listaClientes.add(C2);
+		Proveedor Pr1= new Proveedor("Jose", "Robles", "16384278", "11 4635 9474", "jose@gmail.com", "Av rivadavia 1274", "Caballito, Buenos Aires", "Zapatos");
+		listaProveedor.add(Pr1);
+		Producto P1 = new Producto(1,"Remera Boca", "Remera temporada 2025/26", 59800,10,null);
+		listaProductos.add(P1);
+		Producto P2 = new Producto(2,"Remera River", "Remera temporada 2023/24", 43900,17,null);
+		listaProductos.add(P1);
+		Producto P3 = new Producto(3,"Remera FC Barcelona", "Remera temporada 2025/26", 67900,7,null);
+		listaProductos.add(P1);
+		
 		Admin Diego = new Admin("Diego", "Balcazar", "45454545", "1155442266", "Diego@balcazar.com","diegobalca", "Diego1234", "001", "Admin","1");
 		Admin Beison = new Admin("Beison", "Torres", "45111545", "1199442266", "beison@torres.com", "beisontorres","Beison1234", "002", "Admin","2");
 		
 		Empleado Gamaliel = new Empleado("Natanel", "Quiroz", "45454000", "1166442266", "gama@natan.com", "gamanatanael","Gama1234", "001", "Caja", "1", "Caja");
 		Empleado Juan = new Empleado("Juan", "Carloni", "45454444", "1159992266", "juan@carloni.com", "juan", "1234", "002", "Deposito", "2", "Deposito");
-		
-		Cliente Ian = new Cliente("Ian", "Japan", "45454541", "1155442211", "Ian@japan.com", "Muy Lejos 123", "General Rodriguez", "Mayorista");
-		Proveedor Lara = new Proveedor("Lara", "Ferreri", "1122334455", "1511223344", "lara@ferreri.com", "Sarmiento 1221", "CABA", "Proveedor de Camisetas de Futbol");
-	
-		
-		//Usuarios agregados a la Lista de Cuentas para poder logearse.
 		Cuenta.listaCuentas.add(Diego);
 		Cuenta.listaCuentas.add(Beison);
 		Cuenta.listaCuentas.add(Gamaliel);
 		Cuenta.listaCuentas.add(Juan);
 		
+		String[] menu_cajero = { "Realizar Venta", "Ver Caja", "Ver Stock Tienda", "Ver Ventas HOY", "Cerrar Caja", "Cerrar Sesion" };
+		String[] opcionesDeposito = { "Gestion productos", "Gestion pedidos", "Gestion proveedores", "Cerrar sesion" };
+				
+				
+				
+				//------------------------------LOGIN--------------------------------------------- 
+				Cuenta logueada = null;
+
+				String[] opciones = { "Login", "Salir" };
+
+				int opcion;
+				do {
+				    opcion = JOptionPane.showOptionDialog(null, "Elija opción", null, 0, 0, null, opciones, opciones);
+
+				    if (opcion == 0) {
+
+				        logueada = Cuenta.Login(
+				                JOptionPane.showInputDialog("Ingrese Usuario"),
+				                JOptionPane.showInputDialog("Ingrese contraseña")
+				        );
+
+				        if (logueada != null) {
+
+				        	
+				        	if (logueada.getRolCuenta().equals("Caja")) {
+				        		
+				        		//-------------------------------------------------------------------------- INICIO DEL MENU DEL EMPLEADO CAJERO -----------------------------------------------------------------------------------------------------------------------------	
+				        		JOptionPane.showMessageDialog(null, "Buen dia Cajero "+LocalDate.now());
+				        		
+				        		double dineroencaja=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Dinero que hay en caja"));
+				        		
+				        		boolean flag_menu_principal=true;
+
+				        		do {
+				        			
+				        			int elegido = JOptionPane.showOptionDialog(null, "Seleccione una opcion", null, JOptionPane.DEFAULT_OPTION,JOptionPane.DEFAULT_OPTION, null, menu_cajero, menu_cajero[0]);
+				        			
+				        			switch (elegido) {
+				        	        case 0:
+				        				//Realizar Venta
+				        	        	System.out.println("Realizar Venta");
+				        	        	
+				        	        	//Opciones de Venta
+				        	        	String[] menu_Venta = { "Cliente", "Agregar Producto", "Borrar Producto", "Procesar Cobro", "Volver" };    		
+				        	        	
+				        	        	boolean flag_opcion_venta=true;
+				        	        	ArrayList<DetalleVenta> carrito = new ArrayList<>();
+				        	        	Cliente clienteSeleccionado = null;
+				        	        	//--------------------------------------------------------- MENU DE REALIZAR VENTA --------------------------------------------------------------
+				                        do {
+				        	        		
+				                        	String textoMenu = "Seleccione una opcion\n";
+
+				                        	if (clienteSeleccionado != null) {
+				                        	    textoMenu += "Cliente: "
+				                        	               + clienteSeleccionado.getNombre()
+				                        	               + " " + clienteSeleccionado.getApellido() + "\n";
+				                        	}
+				                        	
+				                        	double total = 0;
+
+				                        	if (!carrito.isEmpty()) {
+				                        	    textoMenu += "\nCARRITO:\n";
+
+				                        	    for (DetalleVenta d : carrito) {
+				                        	        textoMenu += "- " + d.getProducto().getNombreProducto()
+				                        	                   + " x" + d.getCantidad()
+				                        	                   + " ($" + d.getPreciounitario() + ")\n";
+
+				                        	        total += d.getCantidad() * d.getPreciounitario();
+				                        	    }
+
+				                        	    textoMenu += "\nTOTAL: $" + total + "\n";
+				                        	}
+				                        	
+				        	        		int elegido_venta = JOptionPane.showOptionDialog(null, textoMenu, null, JOptionPane.DEFAULT_OPTION,JOptionPane.DEFAULT_OPTION, null, menu_Venta, menu_Venta[0]);
+				        	        		
+				        	            	
+				        	            	switch (elegido_venta) {
+				        	    			case 0:
+				        	    				//-------------CLIENTE---------------
+				        	    				
+				        	    				String[] menu_Cliente = { "Seleccionar Cliente", "Nuevo Cliente", "Volver" };
+				        	    				boolean flag_opcion_cliente=true;
+				        	    				
+				        	    				do {
+				        	    					
+				        	    					int elegido_opcion_cliente = JOptionPane.showOptionDialog(null, "Seleccione una opcion", null, JOptionPane.DEFAULT_OPTION,JOptionPane.DEFAULT_OPTION, null, menu_Cliente, menu_Cliente[0]);
+				        		    				
+				        		    				if (elegido_opcion_cliente==0) {
+				        		    				
+				        		    					if (listaClientes.isEmpty()) {
+				        		    					    JOptionPane.showMessageDialog(null, "No hay clientes");
+				        		    					    break;
+				        		    					}
+
+				        		    					clienteSeleccionado = (Cliente) JOptionPane.showInputDialog(
+				        		    					        null,
+				        		    					        "Seleccione un cliente:",
+				        		    					        "Clientes",
+				        		    					        JOptionPane.QUESTION_MESSAGE,
+				        		    					        null,
+				        		    					        listaClientes.toArray(),
+				        		    					        listaClientes.get(0)
+				        		    					);
+
+				        		    					if (clienteSeleccionado != null) {
+				        		    					    JOptionPane.showMessageDialog(null,
+				        		    					        "Cliente seleccionado:\n" +
+				        		    					        clienteSeleccionado.getNombre() + " " +
+				        		    					        clienteSeleccionado.getApellido()
+				        		    					    );
+				        		    					}
+				        		    					
+				        			    	            //sale del menu_cliente
+				        			    	            flag_opcion_cliente=false;
+				        			    	            
+				        							} else if (elegido_opcion_cliente==1){
+				        							    //NUEVO CLIENTE ----------------------------
+				        								JOptionPane.showMessageDialog(null, "Nuevo Cliente");
+				        								Cliente nuevo = crearCliente();
+				        								listaClientes.add(nuevo);
+				        								
+				        							} else {
+				        								//VOLVER ----------------------------
+				        								//sale del menu_cliente
+				        								flag_opcion_cliente=false;
+				        							}
+				        	    					
+				        						} while (flag_opcion_cliente!=false);
+				        	    				
+				        	    				break;
+				        	    			case 1:
+				        	    				//-------------AGREGAR PRODUCTO----------------
+				        	    				/*if (listaProductos.isEmpty()) {
+				        	    					JOptionPane.showMessageDialog(null, "No hay productos disponibles");
+				        	    				}
+				        	    				
+				        	    				Producto nuevo = crearProducto(listaProveedor);
+				        	    			    listaProductos.add(nuevo);*/
+				        	    			    
+				        	    				if (listaProductos.isEmpty()) {
+				        	    			        JOptionPane.showMessageDialog(null, "No hay productos disponibles");
+				        	    			        break;
+				        	    			    }
+
+				        	    			    Producto seleccionado = (Producto) JOptionPane.showInputDialog(
+				        	    			            null,
+				        	    			            "Seleccione un producto:",
+				        	    			            "Productos",
+				        	    			            JOptionPane.QUESTION_MESSAGE,
+				        	    			            null,
+				        	    			            listaProductos.toArray(),
+				        	    			            listaProductos.get(0)
+				        	    			    );
+
+				        	    			    if (seleccionado != null) {
+
+				        	    			        int cantidad = Integer.parseInt(
+				        	    			            JOptionPane.showInputDialog("Ingrese cantidad:")
+				        	    			        );
+
+				        	    			        if (cantidad <= 0) {
+				        	    			            JOptionPane.showMessageDialog(null, "Cantidad inválida");
+				        	    			            break;
+				        	    			        }
+
+				        	    			        if (seleccionado.getStock() >= cantidad) {
+
+				        	    			            //CREAR DETALLE
+				        	    			            DetalleVenta detalle = new DetalleVenta(
+				        	    			                seleccionado,
+				        	    			                cantidad,
+				        	    			                seleccionado.getPrecio()
+				        	    			            );
+
+				        	    			            carrito.add(detalle);
+
+				        	    			            //DESCONTAR STOCK
+				        	    			            seleccionado.setStock(seleccionado.getStock() - cantidad);
+
+				        	    			            JOptionPane.showMessageDialog(null,
+				        	    			                "Producto agregado:\n" +
+				        	    			                seleccionado.getNombreProducto() +
+				        	    			                "\nCantidad: " + cantidad
+				        	    			            );
+
+				        	    			        } else {
+				        	    			            JOptionPane.showMessageDialog(null, "Stock insuficiente");
+				        	    			        }
+				        	    			    }
+				        	    			    
+				        	    			    
+				        	    				break;
+				        	    			case 2:
+				        	    				//-------------BORRAR PRODUCTO-----------------
+				        	    				
+				        	    				if (carrito.isEmpty()) {
+				        	    			        JOptionPane.showMessageDialog(null, "El carrito está vacío");
+				        	    			        break;
+				        	    			    }
+
+				        	    			    DetalleVenta eliminar = (DetalleVenta) JOptionPane.showInputDialog(
+				        	    			            null,
+				        	    			            "Seleccione producto a eliminar:",
+				        	    			            "Eliminar",
+				        	    			            JOptionPane.QUESTION_MESSAGE,
+				        	    			            null,
+				        	    			            carrito.toArray(),
+				        	    			            carrito.get(0)
+				        	    			    );
+
+				        	    			    if (eliminar != null) {
+
+				        	    			        // devolver stock
+				        	    			        Producto p = eliminar.getProducto();
+				        	    			        p.setStock(p.getStock() + eliminar.getCantidad());
+
+				        	    			        carrito.remove(eliminar);
+				        	    			    }
+				        	    				
+				        	    				break;
+				        	    			case 3:
+				        	    				//-------------PROCESAR COBRO------------------
+				        	    				if (clienteSeleccionado == null) {
+				        	    			        JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente");
+				        	    			        break;
+				        	    			    }
+
+				        	    			    if (carrito.isEmpty()) {
+				        	    			        JOptionPane.showMessageDialog(null, "El carrito está vacío");
+				        	    			        break;
+				        	    			    }
+
+				        	    			    //CALCULAR TOTAL
+				        	    			    double ntotal = 0;
+				        	    			    for (DetalleVenta d : carrito) {
+				        	    			    	ntotal += d.getCantidad() * d.getPreciounitario();
+				        	    			    }
+
+				        	    			    //MEDIO DE PAGO
+				        	    			    String[] mediosPago = {"Efectivo","Transferencia"};
+
+				        	    			    String medio = (String) JOptionPane.showInputDialog(
+				        	    			            null,
+				        	    			            "Seleccione medio de pago\nTotal: $" + ntotal,
+				        	    			            "Cobro",
+				        	    			            JOptionPane.QUESTION_MESSAGE,
+				        	    			            null,
+				        	    			            mediosPago,
+				        	    			            mediosPago[0]
+				        	    			    );
+
+				        	    			    if (medio == null) break;
+
+				        	    			    //CONFIRMAR
+				        	    			    int confirmar = JOptionPane.showConfirmDialog(
+				        	    			            null,
+				        	    			            "Confirmar venta?\nTotal: $" + ntotal,
+				        	    			            "Confirmación",
+				        	    			            JOptionPane.YES_NO_OPTION
+				        	    			    );
+
+				        	    			    if (confirmar != JOptionPane.YES_OPTION) break;
+
+				        	    			    //GENERAR TICKET
+				        	    			    String ticket = "===== TICKET =====\n\n";
+
+				        	    			    ticket += "Cliente: " 
+				        	    			            + clienteSeleccionado.getNombre() + " "
+				        	    			            + clienteSeleccionado.getApellido() + "\n\n";
+
+				        	    			    for (DetalleVenta d : carrito) {
+				        	    			        ticket += d.getProducto().getNombreProducto()
+				        	    			                + " x" + d.getCantidad()
+				        	    			                + " $" + d.getPreciounitario() + "\n";
+				        	    			    }
+
+				        	    			    ticket += "\nTOTAL: $" + ntotal;
+				        	    			    ticket += "\nPago: " + medio;
+				        	    			    ticket += "\n===================";
+
+				        	    			    JOptionPane.showMessageDialog(null, ticket);
+
+				        	    			    //GUARDAR VENTA
+				        	    			    ventasHoy.add(ticket);
+
+				        	    			    dineroencaja += total;
+
+				        	    			 
+				        	    			    carrito.clear();
+				        	    			    clienteSeleccionado = null;
+
+				        	    			    JOptionPane.showMessageDialog(null, "Venta éxitosa");
+				        	    				
+				        	    				break;
+				        	    			case 4:
+				        	    				//-------------VOLVER ATRAS--------------------
+				        	    				System.out.println("Volver a menu");
+				        	    				//sale del menu_Venta
+				        	    				flag_opcion_venta=false;
+				        	    				
+				        	    				break;
+				        	    				
+				        	    			default:
+				        	    				break;
+				        	    			}
+				        	            	
+				        	        		
+				        					
+				        				} while (flag_opcion_venta!=false);
+				        	        	
+				                        System.out.println("Fin del Bucle 2");
+				        				break;
+				        	        case 1:
+				        	        	//--------------------------------------------------------- MENU DE VER CAJA --------------------------------------------------------------
+				        	        	System.out.println("Ver Caja");
+				        	        	JOptionPane.showMessageDialog(null, 
+				        	        	        "ESTADO DE CAJA\nDinero en caja: $" + dineroencaja);
+				        				break;
+				        	        case 2:
+				        	        	//--------------------------------------------------------- MENU DE VER STOCK TIENDA ------------------------------------------------------
+				        	        	System.out.println("Ver Stock Tienda");
+				        	        	
+				        	        	if (listaProductos.isEmpty()) {
+				        	                JOptionPane.showMessageDialog(null, "No hay productos en stock");
+				        	                break;
+				        	            }
+				        	            
+				        	            String stock = "STOCK TIENDA:\n";
+				        	            
+				        	            for (Producto p : listaProductos) {
+				        	            	stock += "- " + p.getNombreProducto() + " | Cant. " + p.getStock() + " | $" + p.getPrecio() + "\n";
+				        	            }
+				        	            
+				        	            JOptionPane.showMessageDialog(null, stock);
+				        	            
+				        				break;
+				        	        case 3:
+				        	        	//--------------------------------------------------------- MENU DE VER VENTAS HOY --------------------------------------------------------
+				        	        	System.out.println("Ver Ventas HOY");
+				        	        	
+				        	        	if (ventasHoy.isEmpty()) {
+				        	                JOptionPane.showMessageDialog(null, "No hay ventas hoy");
+				        	                break;
+				        	            }
+				        	            
+				        	            String ventas = "VENTAS DEL DÍA:\n";
+				        	            
+				        	            for (String v : ventasHoy) {
+				        	                ventas += "- " + v + "\n";
+				        	            }
+				        	            
+				        	            JOptionPane.showMessageDialog(null, ventas);
+				        	            
+				        				break;
+				        	        case 4:
+				        	        	//--------------------------------------------------------- MENU DE CERRAR CAJA -----------------------------------------------------------
+				        	        	System.out.println("Cerrar Caja");
+				        	        	JOptionPane.showMessageDialog(null, "Fin del Día, en Caja $:"+dineroencaja);
+				        	        	flag_menu_principal=false;
+				        				break;
+				        	        case 5:
+				        	        	//--------------------------------------------------------- SALIR DEL PROGRAMA ------------------------------------------------------------
+				        	        	System.out.println("Cerrar Sesion");
+				        	        	
+				        	        	//sale del programa
+				        	        	flag_menu_principal=false;
+				        				break;
+				        				
+				        	        default:
+				        				break;
+				        			}
+				        			
+				        		} while (flag_menu_principal!=false);
+				        		
+				        		System.out.println("Fin del Bucle");
+								
+							} else if (logueada.getRolCuenta().equals("Deposito")){
+								
+								
+								Producto[] misProductos = { P1, P2, P3 };
+								
+								boolean programaCorriendo = true;
+								while (programaCorriendo) {
+
+									int elegido = JOptionPane.showOptionDialog(null, "Elija una opcion", "Depósito", JOptionPane.DEFAULT_OPTION,
+											JOptionPane.DEFAULT_OPTION, null, opcionesDeposito, opcionesDeposito[0]);
+
+									if (elegido == JOptionPane.CLOSED_OPTION)
+										break;
+
+									switch (elegido) {
+									case 0:
+										boolean continuarProd = true;
+										while (continuarProd) {
+											String[] opcionesGestionProductos = { "Cargar producto", "Eliminar producto", "Modificar producto",
+													"Mover producto", "Volver" };
+
+											int elegido0 = JOptionPane.showOptionDialog(null, "Elija una opcion", "Gestión",
+													JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, opcionesGestionProductos,
+													opcionesGestionProductos[0]);
+
+											switch (elegido0) {
+											case 0:
+												String nombprod = JOptionPane.showInputDialog("Nombre del producto:");
+												String descprod = JOptionPane.showInputDialog("Descripcion del producto:");
+												double precprod = Double.parseDouble(JOptionPane.showInputDialog("Precio del producto:"));
+												String provprod = JOptionPane.showInputDialog("Proveedor del producto:");
+
+												JOptionPane.showMessageDialog(null, "Nombre: " + nombprod + "\nDescripcion: " + descprod
+														+ "\nPrecio: " + precprod + "\nProveedor: " + provprod);
+												break;
+
+											case 1:
+												String menu = "Escriba el número del producto a eliminar:\n\n" + "1. "
+														+ (P1 != null ? P1.nombreProducto : "Eliminado") + "\n" + "2. "
+														+ (P2 != null ? P2.nombreProducto : "Eliminado") + "\n" + "3. "
+														+ (P3 != null ? P3.nombreProducto : "Eliminado");
+
+												String seleccion = JOptionPane.showInputDialog(null, menu, "Eliminar",
+														JOptionPane.QUESTION_MESSAGE);
+
+												if (seleccion != null && seleccion.matches("[1-3]")) {
+													int indice = Integer.parseInt(seleccion) - 1;
+													if (misProductos[indice] != null) {
+														String nombreBorrado = misProductos[indice].nombreProducto;
+														misProductos[indice] = null;
+														JOptionPane.showMessageDialog(null,
+																"Objeto '" + nombreBorrado + "' borrado con éxito.");
+													} else {
+														JOptionPane.showMessageDialog(null, "El producto ya estaba vacío.");
+													}
+												}
+												break;
+
+											case 2:
+												String elegida = JOptionPane.showInputDialog(null,
+														"1. " + (P1 != null ? P1.nombreProducto : "N/A") + "\n2. "
+																+ (P2 != null ? P2.nombreProducto : "N/A") + "\n3. "
+																+ (P3 != null ? P3.nombreProducto : "N/A"),
+														"Modificar Producto", JOptionPane.QUESTION_MESSAGE);
+
+												if (elegida != null && elegida.matches("[1-3]")) {
+													int idx = Integer.parseInt(elegida) - 1;
+													Producto seleccionado = misProductos[idx];
+													if (seleccionado == null) {
+														JOptionPane.showMessageDialog(null, "No se puede modificar un producto eliminado.");
+													} else {
+														String campo = JOptionPane.showInputDialog(null, "Modificando: "
+																+ seleccionado.nombreProducto + "\n1. Nombre\n2. Descripción\n3. Precio");
+
+														if (campo != null && campo.matches("[1-3]")) {
+															String nuevoValor = JOptionPane.showInputDialog("Ingrese el nuevo valor:");
+															if (nuevoValor != null && !nuevoValor.isEmpty()) {
+																if (campo.equals("1"))
+																	seleccionado.nombreProducto = nuevoValor;
+																else if (campo.equals("2"))
+																	seleccionado.descripcionProducto = nuevoValor;
+																else if (campo.equals("3") && nuevoValor.matches("[0-9.]+"))
+																	seleccionado.precio = Double.parseDouble(nuevoValor);
+																JOptionPane.showMessageDialog(null, "¡Producto actualizado!");
+															}
+														}
+													}
+												}
+												break;
+
+											case 3:
+												String menuMover = "Seleccione el producto que desea mover:\n" + "1. "
+														+ (P1 != null ? P1.nombreProducto : "Vacío") + "\n" + "2. "
+														+ (P2 != null ? P2.nombreProducto : "Vacío") + "\n" + "3. "
+														+ (P3 != null ? P3.nombreProducto : "Vacío");
+
+												String prodElegido = JOptionPane.showInputDialog(null, menuMover, "Mover Producto",
+														JOptionPane.QUESTION_MESSAGE);
+
+												if (prodElegido != null && prodElegido.matches("[1-3]")) {
+													int idxMover = Integer.parseInt(prodElegido) - 1;
+													Producto seleccionadoMover = misProductos[idxMover];
+
+													if (seleccionadoMover == null) {
+														JOptionPane.showMessageDialog(null, "El producto seleccionado ya no existe.");
+													} else {
+														String[] opcionesUbi = { "Sucursal", "Almacén" };
+														int seleccionUbi = JOptionPane.showOptionDialog(null, "¿A dónde desea moverlo?",
+																"Mover", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+																opcionesUbi, opcionesUbi[0]);
+
+														if (seleccionUbi != JOptionPane.CLOSED_OPTION) {
+															JOptionPane.showMessageDialog(null, "Movido a: " + opcionesUbi[seleccionUbi]);
+														}
+													}
+												}
+												break;
+
+											case 4:
+												continuarProd = false;
+												break;
+											}
+										}
+										break;
+
+									case 1:
+										boolean continuarPed = true;
+										while (continuarPed) {
+											String[] opcionesGestionPedidos = { "Ver pedidos", "Cupo diario", "Enviar pedido", "Volver" };
+											int elegido1 = JOptionPane.showOptionDialog(null, "Gestión de Pedidos", null,
+													JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, opcionesGestionPedidos,
+													opcionesGestionPedidos[0]);
+
+											String pedido1 = "ID: PED-001 | Cliente: Juan Perez";
+											String pedido2 = "ID: PED-002 | Cliente: Maria Lopez";
+											String pedido3 = "ID: PED-003 | Cliente: Ana Gomez";
+
+											switch (elegido1) {
+											case 0:
+												JOptionPane.showMessageDialog(null, pedido1 + "\n" + pedido2 + "\n" + pedido3);
+												break;
+											case 1:
+												JOptionPane.showMessageDialog(null, "Cupo: 3 / 10 pedidos. [███-------] 30%");
+												break;
+											case 2: 
+												String menuEnvio = "Seleccione el pedido a ENVIAR:\n" + "1. " + pedido1 + "\n" + "2. " + pedido2
+														+ "\n" + "3. " + pedido3;
+
+												String selEnvio = JOptionPane.showInputDialog(null, menuEnvio, "Enviar Pedido",
+														JOptionPane.QUESTION_MESSAGE);
+
+												if (selEnvio != null && selEnvio.matches("[1-3]")) {
+													String datosPedido = (selEnvio.equals("1")) ? pedido1
+															: (selEnvio.equals("2")) ? pedido2 : pedido3;
+
+													JOptionPane.showMessageDialog(null, "¡ENVÍO EXITOSO!\n\n" + "Detalles del envío:\n"
+															+ datosPedido + "\n\n" + "El pedido ha sido despachado al transporte.");
+												}
+												break;
+											case 3:
+												continuarPed = false;
+												break;
+											}
+										}
+										break;
+
+									case 2:
+										boolean continuarProv = true;
+										while (continuarProv) {
+											String[] opcionesGestionProveedores = { "Solicitar prod. faltantes", "Volver" };
+											int elegido2 = JOptionPane.showOptionDialog(null, "Gestión de Proveedores", null,
+													JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, opcionesGestionProveedores,
+													opcionesGestionProveedores[0]);
+
+											if (elegido2 == 0) {
+												String menuFaltantes = "Producto a solicitar:\n1. " + P1.nombreProducto + "\n2. "
+														+ P2.nombreProducto;
+												String selProv = JOptionPane.showInputDialog(null, menuFaltantes);
+												if (selProv != null && selProv.matches("[1-2]"))
+													JOptionPane.showMessageDialog(null, "Solicitud enviada.");
+											} else {
+												continuarProv = false;
+											}
+										}
+										break;
+
+									case 3:
+
+										programaCorriendo = false;
+
+										break;
+									}
+								}
+
+							
+								
+								
+								
+								
+
+							} else if (logueada.getRolCuenta().equals("Admin")){
+								
+								
+
+							} else {
+		                       
+				            JOptionPane.showMessageDialog(null, "Usuario no encontrado");
+				          }
+				        }
+				      }
+			      	            
+				} while (opcion != 1);
 		
-		//Login 
-		Cuenta logueada = null;
-
-		String[] opciones = { "Login", "Salir" };
-
-		int opcion;
-		do {
-		    opcion = JOptionPane.showOptionDialog(null, "Elija opción", null, 0, 0, null, opciones, opciones);
-
-		    if (opcion == 0) {
-
-		        logueada = Cuenta.Login(
-		                JOptionPane.showInputDialog("Ingrese Usuario"),
-		                JOptionPane.showInputDialog("Ingrese contraseña")
-		        );
-
-		        if (logueada != null) {
-
-		        	logueada.menu();
-		           
-		            } else {
-                       
-		            JOptionPane.showMessageDialog(null, "Usuario no encontrado");
-		          }
-		      }
-	      	            
-		} while (opcion != 1);
 		
-		
-		
-		        
 		
 	}
+	
+	//metodos
+	public static Cliente crearCliente() {
+		
+		String nombreCliente = JOptionPane.showInputDialog("Ingrese el nombre del Cliente");
+		String apellidoCliente = JOptionPane.showInputDialog("Ingrese el apellido del Cliente");
+		String dniCliente = JOptionPane.showInputDialog("Ingrese el DNI del Cliente");
+		String telefonoCliente = JOptionPane.showInputDialog("Ingrese el telefono del Cliente");
+		String mailCliente = JOptionPane.showInputDialog("Ingrese el correo del Cliente");
+		String direccionCliente = JOptionPane.showInputDialog("Ingrese la direccion del Cliente");
+		String localidadCliente = JOptionPane.showInputDialog("Ingrese la localidad del Cliente");
+		
+		String tipoDeCliente;
+		
+		String[] tipoCliente = {"Minorista","Mayorista"};
+		
+		
+		int opcion_tipo_cliente = JOptionPane.showOptionDialog(null, "Seleccione el Tipo de Cliente", null, JOptionPane.DEFAULT_OPTION,JOptionPane.DEFAULT_OPTION, null, tipoCliente, tipoCliente[0]);
+		
+		if (opcion_tipo_cliente==0) {
+			//minorista
+			tipoDeCliente="Minorista";
+			
+		} else {
+			tipoDeCliente="Mayorista";
+		}
+        
+        Cliente nuevo= new Cliente(nombreCliente, apellidoCliente, dniCliente, telefonoCliente, mailCliente, direccionCliente, localidadCliente, tipoDeCliente);
+        System.out.println("CLIENTE CREADO EXITOSAMENTE\n"+"NOMBRE:"+nuevo.getNombre()+" APELLIDO: "+nuevo.getApellido()+" DNI: "+nuevo.getDni()+" TEL: "+nuevo.getTelefono()+" DNI: "+nuevo.getDni()+" MAIL: "+nuevo.getMail()+" DIRECCION: "+nuevo.getDireccion()+" LOCALIDAD: "+nuevo.getLocalidad()+" TIPO: "+nuevo.getTipo());
+        JOptionPane.showMessageDialog(null, "CLIENTE CREADO EXITOSAMENTE\n"+"\nNOMBRE:"+nuevo.getNombre()+"\nAPELLIDO: "+nuevo.getApellido()+"\nDNI: "+nuevo.getDni()+"\nTEL: "+nuevo.getTelefono()+"\nDNI: "+nuevo.getDni()+"\nMAIL: "+nuevo.getMail()+"\nDIRECCION: "+nuevo.getDireccion()+"\nLOCALIDAD: "+nuevo.getLocalidad()+"\nTIPO: "+nuevo.getTipo());
+        return nuevo;
+    }
+	
+     public static Producto crearProducto(ArrayList<Proveedor> listaProveedor) {
+    	 
+		String nombreProducto = JOptionPane.showInputDialog("Ingrese el nombre del Producto");
+		String descripcionProducto = JOptionPane.showInputDialog("Ingrese la desrcipcion");
+		double precioProducto = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio del producto"));
+		int stock = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock"));
+		
+		// ---- SELECCIÓN DE PROVEEDOR ----
+	    String[] opcionesProveedor = new String[listaProveedor.size()];
+
+	    for (int i = 0; i < listaProveedor.size(); i++) {
+	        Proveedor p = listaProveedor.get(i);
+	        opcionesProveedor[i] = p.getNombre() + " - " + p.getDescripcionProveedor();
+	    }
+
+	    String seleccion = (String) JOptionPane.showInputDialog(
+	            null,
+	            "Seleccione un proveedor:",
+	            "Proveedor",
+	            JOptionPane.QUESTION_MESSAGE,
+	            null,
+	            opcionesProveedor,
+	            opcionesProveedor[0]
+	    );
+
+	    Proveedor proveedorSeleccionado = null;
+
+	    for (Proveedor p : listaProveedor) {
+	        String texto = p.getNombre() + " - " + p.getDescripcionProveedor();
+	        if (texto.equals(seleccion)) {
+	            proveedorSeleccionado = p;
+	            break;
+	        }
+	    }
+
+	    LinkedList<Proveedor> proveedores = new LinkedList<>();
+	    proveedores.add(proveedorSeleccionado);
+		
+		//codigo
+	    int codigo=1;
+	    
+	    codigo=codigo+1;
+
+
+        Producto nuevo= new Producto(codigo,nombreProducto, descripcionProducto, precioProducto, stock, proveedores);
+        System.out.println("PRODUCTO CREADO EXITOSAMENTE\n"+"CODIGO: " + nuevo.getCodigo() + "\nPRODUCTO:"+nuevo.getNombreProducto()+" DESCRIPCION: "+nuevo.getDescripcionProducto()+" PRECIO: $"+nuevo.getPrecio()+" STOCK: "+nuevo.getStock()+" PROVEEDOR: "+nuevo.getProveedores());
+        JOptionPane.showMessageDialog(null, "PRODUCTO CREADO EXITOSAMENTE\n"+"CODIGO: " + nuevo.getCodigo() + "\nPRODUCTO:"+nuevo.getNombreProducto()+"\nDESCRIPCION: "+nuevo.getDescripcionProducto()+"\nPRECIO: $"+nuevo.getPrecio()+"\nSTOCK: "+nuevo.getStock()+"\nPROVEEDOR: "+nuevo.getProveedores());
+        return nuevo;
+    }
 
 }
+
+

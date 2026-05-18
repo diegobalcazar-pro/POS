@@ -40,18 +40,90 @@ public class Proveedor extends Persona{
 	public void setDescripcionProveedor(String descripcionProveedor) {
 		this.descripcionProveedor = descripcionProveedor;
 	}
+	
+	@Override
+	public String getNombre() {
+		// TODO Auto-generated method stub
+		return super.getNombre();
+	}
 
 
 
-	//Metodos
+	@Override
+	public void setNombre(String nombre) {
+		// TODO Auto-generated method stub
+		super.setNombre(nombre);
+	}
+
+
+
+	@Override
+	public String getApellido() {
+		// TODO Auto-generated method stub
+		return super.getApellido();
+	}
+
+
+
+	@Override
+	public void setApellido(String apellido) {
+		// TODO Auto-generated method stub
+		super.setApellido(apellido);
+	}
+
+
+
+	@Override
+	public String getDni() {
+		// TODO Auto-generated method stub
+		return super.getDni();
+	}
+
+
+
+	@Override
+	public void setDni(String dni) {
+		// TODO Auto-generated method stub
+		super.setDni(dni);
+	}
+
+
+
+	@Override
+	public String getTelefono() {
+		// TODO Auto-generated method stub
+		return super.getTelefono();
+	}
+
+
+
+	@Override
+	public void setTelefono(String telefono) {
+		// TODO Auto-generated method stub
+		super.setTelefono(telefono);
+	}
+
+
+
+	@Override
+	public String getMail() {
+		// TODO Auto-generated method stub
+		return super.getMail();
+	}
+
+
+
+	@Override
+	public void setMail(String mail) {
+		// TODO Auto-generated method stub
+		super.setMail(mail);
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "Proveedor [direccionProveedor=" + direccionProveedor + ", localidadProveedor=" + localidadProveedor
-				+ ", descripcionProveedor=" + descripcionProveedor + "]";
+		return "Proveedor: " + getNombre()+" "+getApellido()+" | "+getDescripcionProveedor();
 	}
 	
-	
-	
-	
-
 }

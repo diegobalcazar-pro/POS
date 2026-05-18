@@ -14,12 +14,12 @@ public class Cliente extends Persona{
 		this.localidad = localidad;
 		this.tipo = tipo;
 	}
-
-	
 	//Getters y setters
 	public String getDireccion() {
 		return direccion;
 	}
+
+
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
@@ -28,6 +28,8 @@ public class Cliente extends Persona{
 	public String getLocalidad() {
 		return localidad;
 	}
+
+
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
@@ -36,16 +38,17 @@ public class Cliente extends Persona{
 	public String getTipo() {
 		return tipo;
 	}
+
+
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-
-
-	//Metodos
+	//to string
 	@Override
 	public String toString() {
-		return "Cliente [direccion=" + direccion + ", localidad=" + localidad + ", tipo=" + tipo + "]";
+	    return nombre + " " + apellido + " - DNI: " + dni;
 	}
+	
 	
 	
 
